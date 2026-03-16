@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>تسجيل الدخول — محاسب برو</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0F172A;--cyan:#38BDF8;--emerald:#10B981;--rose:#F43F5E;--txt:#F1F5F9;--muted:#94A3B8;--disabled:#475569;--font:'IBM Plex Sans Arabic',system-ui,sans-serif}
+html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--txt);direction:rtl}
+body{display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 30%,rgba(59,130,246,.1),transparent 60%),radial-gradient(ellipse 60% 50% at 80% 70%,rgba(16,185,129,.08),transparent 60%);pointer-events:none;z-index:0}
+.box{width:430px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:44px;position:relative;z-index:1;box-shadow:0 32px 80px rgba(0,0,0,.5);backdrop-filter:blur(24px)}
+.box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);border-radius:20px}
+.logo{text-align:center;margin-bottom:32px}
+.logo-icon{width:76px;height:76px;border-radius:20px;background:linear-gradient(135deg,#38BDF8,#3B82F6);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 0 40px rgba(56,189,248,.5)}
+.logo-name{font-size:28px;font-weight:700;color:#38BDF8;text-shadow:0 0 30px rgba(56,189,248,.5);margin-bottom:5px}
+.logo-sub{font-size:14px;color:var(--muted)}
+.err{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3);border-radius:10px;padding:12px 16px;color:var(--rose);font-size:13px;margin-bottom:16px;display:none}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px}
+.inp{width:100%;background:rgba(15,23,42,.8);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--txt);font-family:var(--font);font-size:14px;padding:14px 16px;transition:all .3s}
+.inp:focus{outline:none;border-color:#38BDF8;box-shadow:0 0 0 3px rgba(56,189,248,.2)}
+.inp::placeholder{color:var(--disabled)}
+.pw-wrap{position:relative}.pw-wrap .inp{padding-left:48px}
+.pw-toggle{position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:4px}
+.pw-toggle:hover{color:var(--txt)}
+.btn-login{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,#10B981,#059669);color:white;font-family:var(--font);font-size:15px;font-weight:700;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.btn-login:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.4)}
+.sp{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;display:none;animation:spin .6s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.demo{text-align:center;margin-top:20px;padding:14px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:12px}
+.demo p{font-size:12px;color:var(--muted);margin-bottom:5px}.demo strong{color:#38BDF8;font-size:13px}
+</style></head><body>
+<div class="box">
+  <div class="logo"><div class="logo-icon">💎</div><div class="logo-name">محاسب برو</div><div class="logo-sub">نظام المحاسبة الذكي — v2.0 Pro</div></div>
+  <div id="err" class="err"></div>
+  <div class="field"><label>البريد الإلكتروني</label><input type="email" id="email" class="inp" placeholder="example@company.com" value="admin@demo.com" autocomplete="email"></div>
+  <div class="field"><label>كلمة المرور</label><div class="pw-wrap"><input type="password" id="pw" class="inp" placeholder="••••••••" value="123456" autocomplete="current-password"><button type="button" class="pw-toggle" id="pwtog" onclick="togglePw()">👁</button></div></div>
+  <button class="btn-login" id="lbtn" onclick="doLogin()"><span id="btxt">تسجيل الدخول</span><div class="sp" id="sp"></div></button>
+  <div class="demo"><p>حساب تجريبي:</p><strong>admin@demo.com</strong> &nbsp;/&nbsp; <strong>123456</strong></div>
+</div>
+<script>
+function togglePw(){const p=document.getElementById('pw'),t=document.getElementById('pwtog');if(p.type==='password'){p.type='text';t.textContent='🙈';}else{p.type='password';t.textContent='👁';}}
+function doLogin(){
+  const email=document.getElementById('email').value.trim(),pw=document.getElementById('pw').value,err=document.getElementById('err');
+  err.style.display='none';
+  if(!email||!pw){err.style.display='block';err.textContent='❌ أدخل البريد الإلكتروني وكلمة المرور';return;}
+  document.getElementById('btxt').textContent='جاري الدخول...';
+  document.getElementById('sp').style.display='block';
+  document.getElementById('lbtn').disabled=true;
+  fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})})
+    .then(r=>r.json()).then(d=>{
+      if(d.success){window.location.href='/';}
+      else{document.getElementById('btxt').textContent='تسجيل الدخول';document.getElementById('sp').style.display='none';document.getElementById('lbtn').disabled=false;err.style.display='block';err.textContent='❌ '+(d.error||'خطأ في تسجيل الدخول');}
+    }).catch(()=>{document.getElementById('btxt').textContent='تسجيل الدخول';document.getElementById('sp').style.display='none';document.getElementById('lbtn').disabled=false;err.style.display='block';err.textContent='❌ خطأ في الاتصال';});
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+</script></body></html>
